@@ -9,7 +9,7 @@ sudo dd if=~/Downloads/pop-os_20.04_amd64_nvidia_38.iso of=/dev/sd? status=progr
 
 #### Downloading script
 ```bash
-wget https://github.com/skajida/os-instructions/raw/master/Linux/pop_os2004/setup_system.sh -P ~/Downloads
+wget https://raw.githubusercontent.com/skajida/os-instructions/main/Linux/pop_os2004/setup_system.sh -P ~/Downloads
 chmod +x ~/Downloads/setup_system.sh
 ```
 

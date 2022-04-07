@@ -165,7 +165,7 @@ if [[ $1 == *"thiranger"* ]]; then
     echo -e "[Desktop Entry]\nType=Application\nName=org.telegram.desktop\nExec=flatpak run --command=telegram-desktop org.telegram.desktop -workdir /home/thiranger/.var/app/org.telegram.desktop/data/TelegramDesktop/ -autostart\nX-Flatpak=org.telegram.desktop" > ~/.config/autostart/org.telegram.desktop.desktop
 
     # double commander settings
-    rawrepositorypath=https://github.com/skajida/os-instructions/raw/master
+    rawrepositorypath=https://raw.githubusercontent.com/skajida/os-instructions/main
     filename=doublecmd.xml
     mkdir -p ~/.config/doublecmd
     wget $rawrepositorypath/Linux/$filename -P ~/.config/doublecmd

@@ -108,7 +108,7 @@ report "Enabled" "Background logo"
 # bluetooth disabled by default
 # sudo sed -ci "s/\(AutoEnable *= *\).*/\1false/" /etc/bluetooth/main.conf
 sudo bash -c 'echo -e "#!/usr/bin/env bash\nrfkill block bluetooth\nexit 0" > /etc/rc.d/rc.local' && sudo chmod +x /etc/rc.d/rc.local
-report "Disabled" "bluetooth at startup"
+report "Disabled" "Bluetooth at startup"
 
 # speeding up dnf
 grep -qe fastestmirror /etc/dnf/dnf.conf || sudo bash -c 'echo fastestmirror=1 >> /etc/dnf/dnf.conf'
@@ -133,7 +133,7 @@ report "Added" "Atom Editor repository"
 # adding yandex.disk repo
 sudo rpm --import http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
 sudo bash -c 'echo -e "[yandex]\nname=Yandex\nfailovermethod=priority\nbaseurl=http://repo.yandex.ru/yandex-disk/rpm/stable/\$basearch\nenabled=1\nmetadata_expire=1d\ngpgcheck=1\ngpgkey=http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG" > /etc/yum.repos.d/yandex-disk.repo'
-report "Added" "Yandex Disk repository"
+report "Added" "Yandex.Disk repository"
 
 # adding enpass repo
 sudo rpm --import https://yum.enpass.io/RPM-GPG-KEY-enpass-signing-key
@@ -204,7 +204,7 @@ if [[ $1 == *"thiranger"* ]]; then
     report "Added" "Telegram Destop to autostart"
 
     # double commander settings
-    rawrepositorypath=https://github.com/skajida/os-instructions/raw/master
+    rawrepositorypath=https://raw.githubusercontent.com/skajida/os-instructions/main
     filename=doublecmd.xml
     mkdir -p ~/.config/doublecmd
     wget -q $rawrepositorypath/Linux/$filename -P ~/.config/doublecmd
@@ -225,14 +225,14 @@ if [[ $1 == *"thiranger"* ]]; then
     rm -f ~/Downloads/$filename
     vim ~/.vimrc
     # :PlugUpdate
-    report "Set up" "vim settings"
+    report "Set up" "Vim settings"
 
     # yandex.disk setup
     yandex-disk setup
     yandex-disk stop
     echo 'exclude-dirs="AESC,ARCHIVE,CS,SERVER"' >> ~/.config/yandex-disk/config.cfg
     yandex-disk start
-    report "Set up" "yandex-disk daemon"
+    report "Set up" "Yandex.Disk daemon"
 fi
 
 # EOS

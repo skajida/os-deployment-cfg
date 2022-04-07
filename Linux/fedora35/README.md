@@ -8,6 +8,6 @@ sudo dd if=~/Downloads/Fedora-Workstation-Live-x86_64-35/Fedora-Workstation-Live
 
 #### Downloading script
 ```bash
-wget https://github.com/skajida/os-instructions/raw/master/Linux/fedora35/setup_system.sh -P ~/Downloads
+wget https://raw.githubusercontent.com/skajida/os-instructions/main/Linux/fedora35/setup_system.sh -P ~/Downloads
 chmod +x ~/Downloads/setup_system.sh
 ```
