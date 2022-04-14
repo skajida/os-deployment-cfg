@@ -50,14 +50,18 @@ gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Alt>Tab']
 gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Alt>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Super>Tab']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['<Primary><Alt>c']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys home "['<Primary><Alt>f']"
+# ctrl+alt terminal, calculator, nautilus, browser
 schema="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding"
 gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'terminal'
 gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Primary><Alt>t'
 gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['<Primary><Alt>c']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys home "['<Primary><Alt>f']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Primary><Alt>b']"
+# super+esc screen lock
+gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts '[]'
+gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver "['<Super>Escape']"
 report "Set up" "Keyboard shortcuts"
 
 # region & language
@@ -73,7 +77,7 @@ report "Set up" "Clock format and automatic timezone"
 # fonts
 gsettings set org.gnome.desktop.interface document-font-name 'Cantarell Regular 13'
 gsettings set org.gnome.desktop.interface font-name 'Cantarell Regular 13'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro Regular 12'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro Regular 13'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 13'
 report "Set up" "System fonts"
 
@@ -86,6 +90,10 @@ report "Set up" "Top bar"
 # window titlebars
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 report "Turned on" "Maximize and minimize titlebar buttons"
+
+# nautilus folders before files
+gsettings set org.gtk.Settings.FileChooser sort-directories-first true
+report "Set up" "Sort folders before files in Nautilus"
 
 # gnome-weather app
 gsettings set org.gnome.GWeather temperature-unit 'centigrade'
@@ -148,8 +156,8 @@ report "Added" "Flathub compatibility"
 seed "Updating software"
 if [[ $1 == *"thiranger"* ]]; then
     sudo dnf remove -qy cheese firefox gnome-boxes gnome-calendar gnome-characters gnome-clocks gnome-contacts gnome-maps gnome-photos gnome-tour libreoffice* mediawriter rhythmbox totem yelp
-    sudo dnf install -qy atom discord doublecmd-gtk enpass file-roller gcc-c++ gnome-tweaks google-chrome-stable inxi neofetch python3-pip steam transmission valgrind vim vlc yandex-disk # easytag grub-customizer jupyter-notebook mediainfo shotwell soundconverter
-    flatpak install -y --noninteractive flathub org.telegram.desktop com.spotify.Client
+    sudo dnf install -qy atom cmake discord enpass file-roller gcc-c++ gnome-music gnome-tweaks google-chrome-stable inxi neofetch python3-pip steam transmission valgrind vim vlc yandex-disk # doublecmd-gtk easytag grub-customizer jupyter-notebook mediainfo shotwell soundconverter
+    flatpak install -y --noninteractive flathub org.telegram.desktop # com.spotify.Client
 fi
 if [ ! -z "$(lspci | grep -i nvidia)" ]; then
     sudo dnf install -qy akmod-nvidia
@@ -163,7 +171,7 @@ sudo passwd root
 
 if [[ $1 == *"thiranger"* ]]; then
     # favorite apps
-    gsettings set org.gnome.shell favorite-apps "['doublecmd.desktop', 'atom.desktop', 'google-chrome.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'steam.desktop', 'com.spotify.Client.desktop']"
+    gsettings set org.gnome.shell favorite-apps "['atom.desktop', 'google-chrome.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'steam.desktop', 'org.gnome.Music.desktop']"
     report "Set up" "Favorite applications"
 
     # programming ecosystem
@@ -179,7 +187,7 @@ if [[ $1 == *"thiranger"* ]]; then
     grep -qe PS1 ~/.bashrc || echo 'PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\\$ "' >> ~/.bashrc
     source ~/.bashrc
 
-    gsettings get org.gnome.Terminal.Legacy.Settings theme-variant 'system'
+    gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'system'
 
     uuid=$(uuidgen)
     dconfdir=/org/gnome/terminal/legacy/profiles
