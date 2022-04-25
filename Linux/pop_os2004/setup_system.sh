@@ -160,6 +160,9 @@ if [[ $1 == *"thiranger"* ]]; then
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ palette "['rgb(46,52,54)', 'rgb(204,0,0)', 'rgb(78,154,6)', 'rgb(196,160,0)', 'rgb(52,101,164)', 'rgb(117,80,123)', 'rgb(6,152,154)', 'rgb(211,215,207)', 'rgb(85,87,83)', 'rgb(239,41,41)', 'rgb(138,226,52)', 'rgb(252,233,79)', 'rgb(114,159,207)', 'rgb(173,127,168)', 'rgb(52,226,226)', 'rgb(238,238,236)']"
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ visible-name 'Tango'
 
+    # allowing telegram to work in the background
+    flatpak permission-set background background org.telegram.desktop yes
+
     # adding telegram to autostart
     mkdir -p ~/.config/autostart
     echo -e "[Desktop Entry]\nType=Application\nName=org.telegram.desktop\nExec=flatpak run --command=telegram-desktop org.telegram.desktop -workdir /home/thiranger/.var/app/org.telegram.desktop/data/TelegramDesktop/ -autostart\nX-Flatpak=org.telegram.desktop" > ~/.config/autostart/org.telegram.desktop.desktop

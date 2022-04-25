@@ -206,6 +206,9 @@ if [[ $1 == *"thiranger"* ]]; then
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ visible-name 'Tango'
     report "Set up" "Terminal profile preset"
 
+    # allowing telegram to work in the background
+    flatpak permission-set background background org.telegram.desktop yes
+
     # adding telegram to autostart
     mkdir -p ~/.config/autostart
     echo -e "[Desktop Entry]\nType=Application\nName=org.telegram.desktop\nExec=flatpak run --command=telegram-desktop org.telegram.desktop -workdir /home/thiranger/.var/app/org.telegram.desktop/data/TelegramDesktop/ -autostart\nX-Flatpak=org.telegram.desktop" > ~/.config/autostart/org.telegram.desktop.desktop
