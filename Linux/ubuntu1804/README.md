@@ -1,6 +1,6 @@
 # Ubuntu 18.04
 
-#### Creating a bootable USB drive
+#### Create a bootable USB drive
 
 ```bash
 lsblk

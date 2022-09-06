@@ -1,4 +1,4 @@
-# #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 BOLD=$(tput bold)
 LIGHT_RED="\e[1;31m"
@@ -26,7 +26,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-echo -e "Hello, $USER! I am going to set up your ${BOLD}Fedora $(rpm -E %fedora)$END system."
+echo -e "Hello, $USER! This script is going to set up your ${BOLD}Fedora $(rpm -E %fedora)$END system."
 
 # device name
 hostnamectl set-hostname $1
@@ -75,9 +75,9 @@ gsettings set org.gnome.desktop.datetime automatic-timezone true
 report "Set up" "Clock format and automatic timezone"
 
 # fonts
-gsettings set org.gnome.desktop.interface document-font-name 'Cantarell Regular 13'
-gsettings set org.gnome.desktop.interface font-name 'Cantarell Regular 13'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro Regular 13'
+gsettings set org.gnome.desktop.interface document-font-name 'Cantarell 13'
+gsettings set org.gnome.desktop.interface font-name 'Cantarell 13'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 13'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Cantarell Bold 13'
 report "Set up" "System fonts"
 
@@ -101,7 +101,7 @@ gsettings set org.gnome.GWeather temperature-unit 'centigrade'
 # extensions
 seed "Setting up your exntensions"
 
-# restarting gnome-shell (alt+f2+r for Xorg)
+# needs restarting gnome-shell (alt+f2+r for Xorg)
 # works on Xorg, but kills entire wayland session
 # pkill -HUP gnome-shell
 
@@ -129,10 +129,6 @@ sudo dnf install -qy https://download1.rpmfusion.org/free/fedora/rpmfusion-free-
 sudo dnf install -qy https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 report "Added" "RPM Fusion repositories"
 
-# enabling google chrome repository
-sudo dnf config-manager --set-enabled google-chrome
-report "Enabled" "Google Chrome repository"
-
 # adding atom repo
 sudo rpm --import https://packagecloud.io/AtomEditor/atom/gpgkey
 sudo bash -c 'echo -e "[atom]\nname=Atom Editor\nbaseurl=https://packagecloud.io/AtomEditor/atom/el/7/\$basearch\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packagecloud.io/AtomEditor/atom/gpgkey" > /etc/yum.repos.d/atom.repo'
@@ -143,21 +139,17 @@ sudo rpm --import http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
 sudo bash -c 'echo -e "[yandex]\nname=Yandex\nfailovermethod=priority\nbaseurl=http://repo.yandex.ru/yandex-disk/rpm/stable/\$basearch\nenabled=1\nmetadata_expire=1d\ngpgcheck=1\ngpgkey=http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG" > /etc/yum.repos.d/yandex-disk.repo'
 report "Added" "Yandex.Disk repository"
 
-# adding enpass repo
-sudo rpm --import https://yum.enpass.io/RPM-GPG-KEY-enpass-signing-key
-sudo wget -q https://yum.enpass.io/enpass-yum.repo -O /etc/yum.repos.d/enpass-yum.repo
-report "Added" "Enpass repository"
-
 # flathub support
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-modify --enable flathub
 report "Added" "Flathub compatibility"
 
 # updating and installing software
 seed "Updating software"
 if [[ $1 == *"thiranger"* ]]; then
-    sudo dnf remove -qy cheese firefox gnome-boxes gnome-calendar gnome-characters gnome-clocks gnome-contacts gnome-maps gnome-photos gnome-tour libreoffice* mediawriter rhythmbox totem yelp
-    sudo dnf install -qy atom cmake discord enpass file-roller gcc-c++ gnome-music gnome-tweaks google-chrome-stable inxi neofetch python3-pip steam transmission valgrind vim vlc yandex-disk # doublecmd-gtk easytag grub-customizer jupyter-notebook mediainfo shotwell soundconverter
-    flatpak install -y --noninteractive flathub org.telegram.desktop # com.spotify.Client
+    sudo dnf remove -qy cheese gnome-boxes gnome-calendar gnome-characters gnome-maps gnome-photos gnome-tour libreoffice* mediawriter rhythmbox totem yelp
+    sudo dnf install -qy atom cmake discord file-roller gcc-c++ gnome-music gnome-tweaks inxi neofetch pass python3-pip steam transmission valgrind vim vlc yandex-disk # doublecmd-gtk easytag grub-customizer jupyter-notebook mediainfo shotwell soundconverter
+    flatpak install -y --noninteractive flathub com.belmoussaoui.Authenticator com.github.liferooter.textpieces dev.geopjr.Collision org.telegram.desktop # com.spotify.Client
 fi
 if [ ! -z "$(lspci | grep -i nvidia)" ]; then
     sudo dnf install -qy akmod-nvidia
@@ -171,17 +163,13 @@ sudo passwd root
 
 if [[ $1 == *"thiranger"* ]]; then
     # favorite apps
-    gsettings set org.gnome.shell favorite-apps "['atom.desktop', 'google-chrome.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'steam.desktop', 'org.gnome.Music.desktop']"
+    gsettings set org.gnome.shell favorite-apps "['atom.desktop', 'firefox.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'steam.desktop', 'org.gnome.Music.desktop']"
     report "Set up" "Favorite applications"
 
     # programming ecosystem
     mkdir -p ~/fedya/prog
     echo -e "CFLAGS+=-std=c11 -O2 -Wall -Wno-pointer-sign -fsanitize=address,undefined\nCPPFLAGS+=-std=c++17 -O2 -Wall -Werror -Wformat-security -Wignored-qualifiers -Winit-self -Wswitch-default -Wfloat-equal -Wshadow -Wpointer-arith -Wtype-limits -Wempty-body -Wlogical-op -Wmissing-field-initializers -Wctor-dtor-privacy -Wnon-virtual-dtor -Wstrict-null-sentinel -Wold-style-cast -Woverloaded-virtual -Wsign-promo -Weffc++\n.PHONY: all clear\n\nall: main\n\nmain: main.o\n\tg++ \$(CPPFLAGS) \$^ -o \$@\n\nmain.o: main.cpp\n\tg++ \$(CPPFLAGS) -c \$< -o \$@\n\nclear:\n\trm -rf *.o" > ~/fedya/prog/Makefile
     report "Set up" "$USER programming ecosystem"
-
-    # generating ssh key fingerprint
-    ssh-keygen -t ed25519 -C "" -f ~/.ssh/id_ed25519 -N ""
-    report "Added" "ed25519 system key"
 
     # terminal profile preset
     grep -qe PS1 ~/.bashrc || echo 'PS1="\[\e[1;32m\]\u@\h\[\e[0m\]:\[\e[1;34m\]\w\[\e[0m\]\\$ "' >> ~/.bashrc
@@ -214,19 +202,13 @@ if [[ $1 == *"thiranger"* ]]; then
     echo -e "[Desktop Entry]\nType=Application\nName=org.telegram.desktop\nExec=flatpak run --command=telegram-desktop org.telegram.desktop -workdir /home/thiranger/.var/app/org.telegram.desktop/data/TelegramDesktop/ -autostart\nX-Flatpak=org.telegram.desktop" > ~/.config/autostart/org.telegram.desktop.desktop
     report "Added" "Telegram Destop to autostart"
 
-    # double commander settings
-    rawrepositorypath=https://raw.githubusercontent.com/skajida/os-instructions/main
-    filename=doublecmd.xml
-    mkdir -p ~/.config/doublecmd
-    wget -q $rawrepositorypath/Linux/$filename -P ~/.config/doublecmd
-    report "Set up" "Double Commander settings"
-
     # atom editor settings
     mkdir -p ~/.atom
     echo -e '"*":\n  core: {}\n  editor:\n    fontSize: 24\n    preferredLineLength: 100\n    tabLength: 4\n    tabType: "soft"\n  "exception-reporting":\n    userId: "'$(uuidgen)'"\n  "one-dark-ui":\n    fontSize: 19\n  "one-light-ui":\n    fontSize: 19\n  welcome:\n    showOnStartup: false' > ~/.atom/config.cson
     report "Set up" "Atom Editor settings"
 
     # vim settings
+    rawrepositorypath=https://github.com/skajida/os-instructions/raw/main
     filename=vim.zip
     mkdir -p ~/.vim/autoload
     wget -q --trust-server-names https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload
@@ -237,6 +219,9 @@ if [[ $1 == *"thiranger"* ]]; then
     vim ~/.vimrc
     # :PlugUpdate
     report "Set up" "Vim settings"
+
+    # generating ssh key fingerprint
+    ssh-keygen -t ed25519
 
     # yandex.disk setup
     yandex-disk setup

@@ -1,6 +1,6 @@
 # Windows
 
-#### Creating a bootable USB drive
+#### Create a bootable USB drive
 
 Download [Rufus 3.18](https://github.com/pbatard/rufus/releases/download/v3.18/rufus-3.18.exe) to burn an `.iso` image to your USB stick.
 

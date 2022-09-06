@@ -1,19 +1,19 @@
 # Pop!_OS 20.04
 
-#### Creating a bootable USB drive
+#### Create a bootable USB drive
 
 ```bash
 lsblk
 sudo dd if=~/Downloads/pop-os_20.04_amd64_nvidia_38.iso of=/dev/sd? status=progress oflag=sync bs=16M
 ```
 
-#### Downloading script
+#### Download script
 ```bash
 wget https://raw.githubusercontent.com/skajida/os-instructions/main/Linux/pop_os2004/setup_system.sh -P ~/Downloads
 chmod +x ~/Downloads/setup_system.sh
 ```
 
-#### Installing Paint.NET
+#### Install Paint.NET
 
 ```bash
 sudo apt install playonlinux wine
