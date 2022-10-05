@@ -168,7 +168,7 @@ if [[ $1 == *"thiranger"* ]]; then
 
     # programming ecosystem
     mkdir -p ~/fedya/prog
-    echo -e "CFLAGS+=-std=c11 -O2 -Wall -Wno-pointer-sign -fsanitize=address,undefined\nCPPFLAGS+=-std=c++17 -O2 -Wall -Werror -Wformat-security -Wignored-qualifiers -Winit-self -Wswitch-default -Wfloat-equal -Wshadow -Wpointer-arith -Wtype-limits -Wempty-body -Wlogical-op -Wmissing-field-initializers -Wctor-dtor-privacy -Wnon-virtual-dtor -Wstrict-null-sentinel -Wold-style-cast -Woverloaded-virtual -Wsign-promo -Weffc++\n.PHONY: all clear\n\nall: main\n\nmain: main.o\n\tg++ \$(CPPFLAGS) \$^ -o \$@\n\nmain.o: main.cpp\n\tg++ \$(CPPFLAGS) -c \$< -o \$@\n\nclear:\n\trm -rf *.o" > ~/fedya/prog/Makefile
+    echo -e "CFLAGS   += -std=c11 -O2 -Wall -Wno-pointer-sign -fsanitize=address,undefined\nCPPFLAGS += -std=c++17 -O2 -Wall -Wctor-dtor-privacy -Weffc++ -Wempty-body -Werror -Wfloat-equal -Wformat-security -Wignored-qualifiers -Winit-self -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wpointer-arith -Wshadow -Wsign-promo -Wstrict-null-sentinel -Wswitch-default -Wtype-limits\n\n.PHONY: all clear\n\nall: main\n\nmain: main.o\n\tg++ \$(CPPFLAGS) \$^ -o \$@\n\nmain.o: main.cpp\n\tg++ \$(CPPFLAGS) -c \$< -o \$@\n\nclear:\n\trm -rf *.o" > ~/fedya/prog/Makefile
     report "Set up" "$USER programming ecosystem"
 
     # terminal profile preset
