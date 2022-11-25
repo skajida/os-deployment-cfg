@@ -22,11 +22,31 @@ report() {
 }
 
 if [ $# -ne 1 ]; then
-    echo -e "${LIGHT_RED}device name expected as argument$END"
+    echo -e "${LIGHT_RED}Device name expected as argument$END"
     exit 1
 fi
 
-echo -e "Hello, $USER! This script is going to set up your ${BOLD}Fedora $(rpm -E %fedora)$END system."
+custom_keybindings_count=0
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings []
+set_custom_keybinding() {
+    if [ $# -ne 3 ]; then
+        exit 1
+    fi
+    prev_custom_keybindings_value=$(gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings | cut -d'[' -f2 | cut -d']' -f1)
+    custom_keybinding_path="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom$custom_keybindings_count/"
+    if [ $( echo $prev_custom_keybindings_value | wc -w ) -ne 0 ]; then
+        prev_custom_keybindings_value+=', '
+    fi
+    prev_custom_keybindings_value+="'$custom_keybinding_path'"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[$prev_custom_keybindings_value]"
+    custom_keybindings_schema='org.gnome.settings-daemon.plugins.media-keys.custom-keybinding'
+    gsettings set $custom_keybindings_schema:$custom_keybinding_path name $1
+    gsettings set $custom_keybindings_schema:$custom_keybinding_path binding $2
+    gsettings set $custom_keybindings_schema:$custom_keybinding_path command $3
+    (( custom_keybindings_count++ ))
+}
+
+echo -e "Hello, $USER! This script is going to set up your ${BOLD}$(cat /etc/os-release | grep PRETTY_NAME | cut -d\" -f2)$END system."
 
 # device name
 hostnamectl set-hostname $1
@@ -51,16 +71,12 @@ gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Super>Tab']"
 # ctrl+alt terminal, calculator, nautilus, browser
-schema="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding"
-gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'terminal'
-gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Primary><Alt>t'
-gsettings set $schema:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'gnome-terminal'
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+set_custom_keybinding 'terminal' '<Primary><Alt>t' 'gnome-terminal'
 gsettings set org.gnome.settings-daemon.plugins.media-keys calculator "['<Primary><Alt>c']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys home "['<Primary><Alt>f']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Primary><Alt>b']"
 # super+esc screen lock
-gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts '[]'
+gsettings set org.gnome.mutter.wayland.keybindings restore-shortcuts []
 gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver "['<Super>Escape']"
 report "Set up" "Keyboard shortcuts"
 
@@ -95,19 +111,22 @@ report "Turned on" "Maximize and minimize titlebar buttons"
 gsettings set org.gtk.Settings.FileChooser sort-directories-first true
 report "Set up" "Sort folders before files in Nautilus"
 
+# gnome text editor restoring previous session
+gsettings set org.gnome.TextEditor restore-session false
+
 # gnome-weather app
-gsettings set org.gnome.GWeather temperature-unit 'centigrade'
+gsettings set org.gnome.GWeather4 temperature-unit 'centigrade'
 
 # extensions
 seed "Setting up your exntensions"
 
-# needs restarting gnome-shell (alt+f2+r for Xorg)
-# works on Xorg, but kills entire wayland session
-# pkill -HUP gnome-shell
-
 # tray icons
 gnome-extensions enable -q appindicatorsupport@rgcjonas.gmail.com
 report "Enabled" "Tray icons"
+
+# needs restarting gnome-shell (alt+f2+r for Xorg)
+# works on Xorg, but kills entire wayland session
+# pkill -HUP gnome-shell
 
 # background logo
 gsettings set org.fedorahosted.background-logo-extension logo-always-visible true
@@ -146,22 +165,24 @@ report "Added" "Flathub compatibility"
 
 # updating and installing software
 seed "Updating software"
-if [[ $1 == *"thiranger"* ]]; then
-    sudo dnf remove -qy cheese gnome-boxes gnome-calendar gnome-characters gnome-maps gnome-photos gnome-tour libreoffice* mediawriter rhythmbox totem yelp
-    sudo dnf install -qy atom cmake discord file-roller gcc-c++ gnome-music gnome-tweaks inxi neofetch pass python3-pip steam transmission valgrind vim vlc yandex-disk # doublecmd-gtk easytag grub-customizer jupyter-notebook mediainfo shotwell soundconverter
+if [[ $USER == "thiranger" ]]; then
+    sudo dnf remove -qy cheese gnome-boxes gnome-calendar gnome-maps gnome-photos gnome-tour libreoffice* mediawriter rhythmbox totem yelp
+fi
+sudo dnf upgrade -qy
+if [[ $USER == "thiranger" ]]; then
+    sudo dnf install -qy atom cmake discord file-roller gcc-c++ gnome-music gnome-tweaks inxi mediainfo neofetch pass python3-pip steam transmission valgrind vim vlc yandex-disk # easytag grub-customizer jupyter-notebook shotwell soundconverter
     flatpak install -y --noninteractive flathub com.belmoussaoui.Authenticator com.github.liferooter.textpieces dev.geopjr.Collision org.telegram.desktop # com.spotify.Client
 fi
 if [ ! -z "$(lspci | grep -i nvidia)" ]; then
     sudo dnf install -qy akmod-nvidia
 fi
-sudo dnf upgrade -qy
 sudo dnf autoremove -qy
 report "Set up" "Software stack"
 
 # superuser
 sudo passwd root
 
-if [[ $1 == *"thiranger"* ]]; then
+if [[ $USER == "thiranger" ]]; then
     # favorite apps
     gsettings set org.gnome.shell favorite-apps "['atom.desktop', 'firefox.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'steam.desktop', 'org.gnome.Music.desktop']"
     report "Set up" "Favorite applications"
@@ -184,11 +205,11 @@ if [[ $1 == *"thiranger"* ]]; then
     gsettings set org.gnome.Terminal.ProfilesList default "'$uuid'"
 
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ audible-bell false
-    gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ background-color 'rgb(46,52,54)'
+    gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ background-color 'rgb(238,238,236)'
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ bold-is-bright true
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ highlight-background-color 'rgb(72,185,199)'
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ highlight-colors-set true
-    gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ foreground-color 'rgb(211,215,207)'
+    gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ foreground-color 'rgb(46,52,54)'
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ palette "['rgb(46,52,54)', 'rgb(204,0,0)', 'rgb(78,154,6)', 'rgb(196,160,0)', 'rgb(52,101,164)', 'rgb(117,80,123)', 'rgb(6,152,154)', 'rgb(211,215,207)', 'rgb(85,87,83)', 'rgb(239,41,41)', 'rgb(138,226,52)', 'rgb(252,233,79)', 'rgb(114,159,207)', 'rgb(173,127,168)', 'rgb(52,226,226)', 'rgb(238,238,236)']"
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ use-theme-colors false
     gsettings set org.gnome.Terminal.Legacy.Profile:$dconfdir:/:$uuid/ visible-name 'Tango'
@@ -210,23 +231,22 @@ if [[ $1 == *"thiranger"* ]]; then
     # vim settings
     rawrepositorypath=https://github.com/skajida/os-instructions/raw/main
     filename=vim.zip
-    mkdir -p ~/.vim/autoload
-    wget -q --trust-server-names https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload
-    wget -q $rawrepositorypath/Linux/$filename -P ~/Downloads
-    unzip -q ~/Downloads/$filename -d ~/.vim
+    wget --show-progress -qxnd --trust-server-names https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload
+    wget --show-progress -q $rawrepositorypath/Linux/$filename -P /tmp
+    unzip -q /tmp/$filename -d ~/.vim
     mv ~/.vim/.vimrc ~
-    rm -f ~/Downloads/$filename
     vim ~/.vimrc
     # :PlugUpdate
     report "Set up" "Vim settings"
 
     # generating ssh key fingerprint
-    ssh-keygen -t ed25519
+    ssh-keygen -ted25519 -C"$USER@$HOSTNAME" -f ~/.ssh/id_ed25519 -N ""
+    report "Generated" "ed25519 ssh keyring"
 
     # yandex.disk setup
     yandex-disk setup
     yandex-disk stop
-    echo 'exclude-dirs="AESC,ARCHIVE,CS,SERVER"' >> ~/.config/yandex-disk/config.cfg
+    echo 'exclude-dirs="ARCHIVE"' >> ~/.config/yandex-disk/config.cfg
     yandex-disk start
     report "Set up" "Yandex.Disk daemon"
 fi
