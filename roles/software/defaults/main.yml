@@ -1,0 +1,70 @@
+---
+superfluous_rpm_packages:
+  - cheese
+  - gnome-boxes
+  - gnome-calendar
+  - gnome-maps
+  - gnome-photos
+  - gnome-tour
+  - libreoffice*
+  - mediawriter
+  - rhythmbox
+  - totem
+  - yelp
+
+cxx_rpm_env:
+  - gcc-c++
+
+rpm_fusion_programs:
+  - discord
+  - steam
+  - vlc
+
+cxx_common_env:
+  - cmake
+  - valgrind
+
+cxx_env: "{{ cxx_rpm_env | union(cxx_common_env) }}"
+
+python_env:
+  - python3-pip
+  # jupyter-notebook
+
+programming_env: "{{ cxx_env | union(python_env) }}"
+
+programming_utils:
+  - tmux
+  - vim
+
+system_utils:
+  - htop
+  - inxi
+  - neofetch
+
+pkg_utils:
+  - mediainfo
+  - pass
+  - speedtest-cli
+  - yandex-disk
+
+utils: "{{ programming_env | union(programming_utils) | union(system_utils) | union(pkg_utils) }}"
+
+programs:
+  - code
+  - file-roller
+  - foliate
+  - gnome-music
+  - gnome-tweaks
+  - transmission
+  # easytag grub-customizer shotwell soundconverter
+
+superfluous_packages: "{{ superfluous_rpm_packages | unique }}"
+desired_packages: "{{ utils | union(programs) | union(rpm_fusion_programs) | unique }}"
+
+flatpak_programs:
+  - com.belmoussaoui.Authenticator
+  - com.github.liferooter.textpieces
+  - org.telegram.desktop
+  # com.spotify.Client dev.geopjr.Collision
+
+flatpak_packages: "{{ flatpak_programs | unique }}"

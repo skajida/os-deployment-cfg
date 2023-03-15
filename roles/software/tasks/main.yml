@@ -1,0 +1,7 @@
+---
+- name: Installing software on Red Hat family operating system
+  ansible.builtin.include_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Installing flatpaks
+  ansible.builtin.include_tasks: flatpak.yml

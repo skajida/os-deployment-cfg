@@ -1,0 +1,126 @@
+---
+- name: Setting up Multitasking settings
+  block:
+    - name: Disabling Hot Corner
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/enable-hot-corners
+        value: "false"
+
+- name: Setting up Power settings
+  block:
+    - name: Enabling Show Battery Percentage toggle
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/show-battery-percentage
+        value: "true"
+
+- name: Setting up Display settings
+  block:
+    - name: Setting up Night Light settings
+      block:
+        - name: Enabling Night Light toggle
+          community.general.dconf:
+            key: /org/gnome/settings-daemon/plugins/color/night-light-enabled
+            value: "true"
+        - name: Setting up Color Temperature
+          community.general.dconf:
+            key: /org/gnome/settings-daemon/plugins/color/night-light-temperature
+            value: "uint32 3700"
+
+- name: Setting up Mouse & Touchpad settings
+  block:
+    - name: Enabling Tap to Click toggle
+      community.general.dconf:
+        key: /org/gnome/desktop/peripherals/touchpad/tap-to-click
+        value: "true"
+
+- name: Setting up Keyboard settings
+  block:
+    - name: Adding Russian layout to Input Sources
+      community.general.dconf:
+        key: /org/gnome/desktop/input-sources/sources
+        value: "[('xkb', 'us'), ('xkb', 'ru')]"
+    - name: Enabling per window Input Source Switching
+      community.general.dconf:
+        key: /org/gnome/desktop/input-sources/per-window
+        value: "true"
+
+- name: Setting up Date & Time settings
+  block:
+    - name: Enabling Automatic Time Zone
+      community.general.dconf:
+        key: /org/gnome/desktop/datetime/automatic-timezone
+        value: "true"
+
+- name: Setting up Fonts settings
+  block:
+    - name: Setting up Interface text font
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/font-name
+        value: "'Cantarell 13'"
+    - name: Setting up Document Text font
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/document-font-name
+        value: "'Cantarell 13'"
+    - name: Setting up Monospace text font
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/monospace-font-name
+        value: "'Source Code Pro 12'"
+    - name: Setting up Legacy Window Titles font
+      community.general.dconf:
+        key: /org/gnome/desktop/wm/preferences/titlebar-font
+        value: "'Cantarell Bold 13'"
+
+- name: Setting up Top Bar settings
+  block:
+    - name: Enabling Week Numbers toggle
+      community.general.dconf:
+        key: /org/gnome/desktop/calendar/show-weekdate
+        value: "true"
+
+- name: Setting up Window Titlebars settings
+  block:
+    - name: Enabling Maximize & Minimize buttons
+      community.general.dconf:
+        key: /org/gnome/desktop/wm/preferences/button-layout
+        value: "'appmenu:minimize,maximize,close'"
+
+- name: Enabling sort-directories-first toggle
+  community.general.dconf:
+    key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
+    value: "true"
+
+- name: Setting up Text Editor settings
+  block:
+    - name: Enabling Highlight Current Line toggle
+      community.general.dconf:
+        key: /org/gnome/TextEditor/highlight-current-line
+        value: "true"
+    - name: Disabling Restore session toggle
+      community.general.dconf:
+        key: /org/gnome/TextEditor/restore-session
+        value: "false"
+
+- name: Setting up Weather settings
+  block:
+    - name: Setting Temperature Unit to Celsius
+      community.general.dconf:
+        key: /org/gnome/GWeather4/temperature-unit
+        value: "'centigrade'"
+
+- name: Setting up Extensions settings
+  block:
+    - name: Enabling Icon Tray extension
+      community.general.dconf:
+        key: /org/gnome/shell/enables-extensions
+        value: "['background-logo@fedorahosted.org', 'appindicatorsupport@rgcjonas.gmail.com']"
+    - name: Enabling always visible Fedora logo
+      community.general.dconf:
+        key: /org/fedorahosted/background-logo-extension/logo-always-visible
+        value: "true"
+
+- name: Setting up Terminal settings
+  block:
+    - name: Enabling Default Theme variant
+      community.general.dconf:
+        key: /org/gnome/terminal/legacy/theme-variant
+        value: "'system'"

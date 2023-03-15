@@ -1,0 +1,47 @@
+---
+- name: Setting up Launchers shortcuts
+  block:
+    - name: Setting up Home folder shortcut
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/media-keys/home
+        value: "['<Super>f']"
+    - name: Setting up Launch calculator shortcut
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/media-keys/calculator
+        value: "['<Super>c']"
+    - name: Setting up Launch terminal shortcut
+      block:
+      - name: __creating_custom_shortcut_for_terminal
+        community.general.dconf:
+          key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings
+          value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
+      - name: __naming_custom_shortcut_for_terminal
+        community.general.dconf:
+          key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name
+          value: "'Launch terminal'"
+      - name: __commanding_custom_shortcut_for_terminal
+        community.general.dconf:
+          key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command
+          value: "'gnome-terminal'"
+      - name: __binding_custom_shortcut_for_terminal
+        community.general.dconf:
+          key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding
+          value: "'<Super>t'"
+    - name: Setting up Launch web browser shortcut
+      community.general.dconf:
+        key: /org/gnome/settings-daemon/plugins/media-keys/www
+        value: "['<Super>b']"
+
+- name: Setting up Navigation shortcuts
+  block:
+    - name: Setting up Hide all normal windows shortcut
+      community.general.dconf:
+        key: /org/gnome/desktop/wm/keybindings/show-desktop
+        value: "['<Super>d']"
+
+- name: Setting up Windows shortcuts
+  block:
+    - name: Setting up Close window shortcut
+      community.general.dconf:
+        key: /org/gnome/desktop/wm/keybindings/close
+        value: "['<Super>q']"

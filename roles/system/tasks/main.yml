@@ -1,0 +1,7 @@
+---
+- name: Setting up system settings
+  include_tasks: "{{ item }}"
+  loop:
+    - hostname.yml
+    - bluetooth.yml
+    - dnfspeedup.yml

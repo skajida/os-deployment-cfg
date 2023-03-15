@@ -1,0 +1,22 @@
+---
+- name: Setting up cxx environment
+  block:
+    - name: Copying Makefile
+      ansible.builtin.copy:
+        src: Makefile
+        dest: /home/{{ ansible_user_id }}/fedya/prog/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+
+- name: Setting up Yandex.Disk
+  block:
+    - name: Copying Yandex.Disk config file
+      ansible.builtin.copy:
+        src: config.cfg
+        dest: /home/{{ ansible_user_id }}/.config/yandex-disk/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+    - name: Setting up Yandex.Disk authentication
+      ansible.builtin.command:
+        cmd: yandex-disk token
+      when: false

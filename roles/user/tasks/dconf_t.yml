@@ -1,0 +1,12 @@
+---
+- name: Setting up Date & Time settings
+  block:
+    - name: Setting up 12h clock format
+      community.general.dconf:
+        key: /org/gnome/desktop/interface/clock-format
+        value: "'12h'"
+
+- name: Setting up dock favorite apps
+  community.general.dconf:
+    key: /org/gnome/shell/favorite-apps
+    value: "['code.desktop', 'firefox.desktop', 'org.telegram.desktop.desktop', 'discord.desktop', 'org.gnome.Music.desktop']"

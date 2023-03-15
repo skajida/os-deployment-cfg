@@ -1,0 +1,17 @@
+---
+- name: Speeding up DNF package manager
+  block:
+    - name: Enabling fastestmirror flag
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/dnf/dnf.conf
+        regexp: "^fastestmirror=.*$"
+        line: "fastestmirror=True"
+      notify: Removing DNF cache data
+    - name: Setting up max_parallel_downloads quantity
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/dnf/dnf.conf
+        regexp: "^max_parallel_downloads=.*$"
+        line: "max_parallel_downloads=10"
+      notify: Removing DNF cache data

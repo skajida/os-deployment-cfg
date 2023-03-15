@@ -1,0 +1,6 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=Telegram Desktop
+Exec=flatpak run --command=telegram-desktop org.telegram.desktop -autostart
+X-Flatpak=org.telegram.desktop

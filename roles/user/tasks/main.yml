@@ -1,0 +1,22 @@
+---
+- name: Installing required python3 libraries
+  become: yes
+  ansible.builtin.package:
+    name:
+      - python3-psutil
+    state: latest
+  when: true
+
+- name: Setting up user settings
+  include_tasks: "{{ item }}"
+  loop:
+    - dconf.yml
+    - shortcuts.yml
+    - usercfg.yml
+
+- name: Setting up {{ ansible_user_id }}'s workspace
+  include_tasks: "{{ item }}"
+  loop:
+    - dconf_t.yml
+    - usercfg_t.yml
+  when: ansible_user_id == "thiranger"

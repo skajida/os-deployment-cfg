@@ -1,0 +1,66 @@
+---
+- name: Removing superfluous packages
+  become: yes
+  ansible.builtin.dnf:
+    name: "{{ superfluous_packages }}"
+    autoremove: true
+    state: absent
+
+- name: Adding RPM repositories
+  block:
+  - name: Adding RPM Fusion repositories
+    become: yes
+    ansible.builtin.dnf:
+      name:
+        - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+        - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      state: present
+    when: ansible_distribution == 'Fedora' and desired_packages | intersect(rpm_fusion_programs) | length
+  - name: Adding Visual Studio Code repository
+    become: yes
+    ansible.builtin.yum_repository:
+      name: vscode
+      description: Visual Studio Code
+      baseurl: https://packages.microsoft.com/yumrepos/vscode
+      enabled: true
+      gpgcheck: true
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    when: desired_packages is contains("code")
+  - name: Adding Yandex.Disk repository
+    become: yes
+    ansible.builtin.yum_repository:
+      name: yandex-disk
+      description: Yandex.Disk
+      baseurl: http://repo.yandex.ru/yandex-disk/rpm/stable/$basearch
+      enabled: true
+      failovermethod: priority
+      gpgcheck: true
+      gpgkey: http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
+      metadata_expire: 1d
+    when: desired_packages is contains("yandex-disk")
+
+- name: Updating existing packages
+  become: yes
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+
+- name: Installing desired packages
+  become: yes
+  ansible.builtin.package:
+    name: "{{ desired_packages }}"
+    state: latest
+
+- name: Installing NVIDIA drivers
+  block:
+    - name: Setting up NVIDIA hardware fact
+      ansible.builtin.set_fact:
+        nvidia_hardware: true
+      loop: "{{ lookup('ansible.builtin.dict', ansible_cmdline) }}"
+      when: "'nvidia-drm.modeset' in item.key"
+    - name: Installing NVIDIA driver
+      become: yes
+      ansible.builtin.dnf:
+        name: akmod-nvidia
+        state: latest
+      when: nvidia_hardware is defined and nvidia_hardware

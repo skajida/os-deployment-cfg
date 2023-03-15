@@ -1,0 +1,5 @@
+---
+- name: Setting hostname to {{ hostname | default(omit) }}
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
+  when: hostname is string

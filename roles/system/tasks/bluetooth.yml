@@ -1,0 +1,9 @@
+---
+- name: Disabling bluetooth autostart
+  become: yes
+  ansible.builtin.copy:
+    src: rc.local
+    dest: /etc/rc.d/rc.local
+    owner: root
+    group: root
+    mode: 0700

@@ -1,0 +1,48 @@
+---
+- name: Setting up bash config
+  block:
+    - name: Adding PS1 variable
+      ansible.builtin.lineinfile:
+        path: /home/{{ ansible_user_id }}/.bashrc
+        line: "export PS1=\"[\\[\\e[1;32m\\]\\u@\\h\\[\\e[0m\\] \\[\\e[1;34m\\]\\W\\[\\e[0m\\]]\\\\$ \\[$(tput sgr0)\\]\""
+    - name: Adding alternate (Ubuntu) PS1 variable
+      ansible.builtin.lineinfile:
+        path: /home/{{ ansible_user_id }}/.bashrc
+        line: "# export PS1=\"\\[\\e[1;32m\\]\\u@\\h\\[\\e[0m\\]:\\[\\e[1;34m\\]\\w\\[\\e[0m\\]\\\\$ \\[$(tput sgr0)\\]\""
+
+- name: Setting up Telegram Desktop settings
+  block:
+    - name: Giving Telegram Desktop permission to run on a background
+      ansible.builtin.command:
+        cmd: flatpak permission-set background background org.telegram.desktop yes
+    - name: Adding Telegram Desktop to {{ ansible_user_id }}'s autostart config
+      ansible.builtin.copy:
+        src: org.telegram.desktop.desktop
+        dest: /home/{{ ansible_user_id }}/.config/autostart/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+
+- name: Creating SSH keyring
+  block:
+    - name: Generating SSH keyring
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        generate_ssh_key: true
+        ssh_key_type: ed25519
+        ssh_key_comment: "{{ ansible_user_id }}@{{ ansible_hostname }}"
+        force: false
+
+- name: Setting up Vim config
+  block:
+    - name: Copying .vimrc to Home folder
+      ansible.builtin.copy:
+        src: .vimrc
+        dest: /home/{{ ansible_user_id }}/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+    - name: Copying eclipse.vim colorscheme
+      ansible.builtin.copy:
+        src: eclipse.vim
+        dest: /home/{{ ansible_user_id }}/.vim/colors/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"

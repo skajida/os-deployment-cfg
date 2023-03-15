@@ -1,0 +1,6 @@
+---
+- hosts: workstation
+  roles:
+    - role: system
+    - role: software
+    - role: user
