@@ -11,3 +11,4 @@
     name: "{{ flatpak_packages }}"
     remote: flathub
     state: present
+  notify: Giving Telegram Desktop permission to run on a background

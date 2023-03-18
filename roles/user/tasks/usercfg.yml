@@ -12,9 +12,6 @@
 
 - name: Setting up Telegram Desktop settings
   block:
-    - name: Giving Telegram Desktop permission to run on a background
-      ansible.builtin.command:
-        cmd: flatpak permission-set background background org.telegram.desktop yes
     - name: Adding Telegram Desktop to {{ ansible_user_id }}'s autostart config
       ansible.builtin.copy:
         src: org.telegram.desktop.desktop

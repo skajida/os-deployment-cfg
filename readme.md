@@ -56,6 +56,6 @@ sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
 
 ## To-do
 
-[ ] Check flathub is managed correctly
-[ ] Import GPG keyring
-[ ] Import Auth config
+* Check flathub is managed correctly
+* Import GPG keyring
+* Import Auth config
