@@ -12,59 +12,46 @@ superfluous_rpm_packages:
   - totem
   - yelp
 
-cxx_rpm_env:
-  - gcc-c++
-
 rpm_fusion_programs:
   - discord
   - steam
   - vlc
 
-cxx_common_env:
+programming_env:
+  # jupyter-notebook
   - cmake
+  - gcc-c++
+  - python3-pip
   - valgrind
 
-cxx_env: "{{ cxx_rpm_env | union(cxx_common_env) }}"
-
-python_env:
-  - python3-pip
-  # jupyter-notebook
-
-programming_env: "{{ cxx_env | union(python_env) }}"
-
-programming_utils:
-  - tmux
-  - vim
-
-system_utils:
+utils:
   - htop
   - inxi
-  - neofetch
-
-pkg_utils:
   - mediainfo
+  - neofetch
   - pass
   - speedtest-cli
+  - tmux
+  - vim
   - yandex-disk
 
-utils: "{{ programming_env | union(programming_utils) | union(system_utils) | union(pkg_utils) }}"
+programs_cli: "{{ utils | union(programming_env) }}"
 
 programs:
+  # easytag gnome-tweaks grub-customizer shotwell soundconverter
   - code
   - file-roller
   - foliate
   - gnome-music
-  - gnome-tweaks
   - transmission
-  # easytag grub-customizer shotwell soundconverter
 
 superfluous_packages: "{{ superfluous_rpm_packages | unique }}"
-desired_packages: "{{ utils | union(programs) | union(rpm_fusion_programs) | unique }}"
+desired_packages: "{{ programs_cli | union(programs) | union(rpm_fusion_programs) | unique }}"
 
 flatpak_programs:
+  # com.spotify.Client dev.geopjr.Collision
   - com.belmoussaoui.Authenticator
   - com.github.liferooter.textpieces
   - org.telegram.desktop
-  # com.spotify.Client dev.geopjr.Collision
 
 flatpak_packages: "{{ flatpak_programs | unique }}"

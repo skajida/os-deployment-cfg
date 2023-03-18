@@ -2,11 +2,17 @@
 
 ## Download and run config
 
+**Downloading**
+
 ```bash
 wget --show-progress https://github.com/skajida/os-instructions/archive/refs/heads/main.zip -O /tmp/os-instr.zip
 unzip /tmp/os-instr.zip -d ~/Documents/
-chmod +x ~/Documents/os-instructions-main/run.sh
-~/Documents/os-instructions-main/run.sh
+```
+
+**Running**
+
+```bash
+~/Documents/os-instructions-main/run.sh [hostname]
 ```
 
 ## Creating a bootable USB drive
@@ -47,3 +53,9 @@ sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
 
 * [Fedora 37 Server](https://mirror.linux-ia64.org/fedora/linux/releases/37/Server/x86_64/iso/Fedora-Server-dvd-x86_64-37-1.7.iso)
 * [Ubuntu Server 22.04](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso)
+
+## To-do
+
+[ ] Check flathub is managed correctly
+[ ] Import GPG keyring
+[ ] Import Auth config

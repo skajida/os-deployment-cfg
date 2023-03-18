@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-sudo dnf install ansible
+sudo dnf install -y ansible
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 ansible-galaxy collection install -r $SCRIPT_DIR/requirements.yml
 
+cd $SCRIPT_DIR
 if [ $# -ne 1 ]; then
-    ansible-playbook $SCRIPT_DIR/setup.yml -K
+    ansible-playbook setup.yml -K
 else
-    ansible-playbook $SCRIPT_DIR/setup.yml -K --extra-vars hostname=$1
+    ansible-playbook setup.yml -K --extra-vars hostname=$1
 fi

@@ -1,5 +1,6 @@
 ---
 - name: Adding flathub remote
+  become: yes
   community.general.flatpak_remote:
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
