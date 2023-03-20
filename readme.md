@@ -57,7 +57,7 @@ sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
 ## To-do
 
 * Check flathub is managed correctly (Fedora)
-* Include separated configs for CentOS (inxi, speedtest-cli, old GNOME ver)
+* Include separated configs for CentOS (crb repo, inxi, speedtest-cli?, old GNOME ver settings)
 * Include separated configs for Ubuntu
 * Include role for home server deployment
 * Import GPG keyring
