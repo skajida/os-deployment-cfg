@@ -1,6 +1,15 @@
 ---
+# TODO reorganize software role
+- name: Installing CentOS epel-release
+  become: yes
+  ansible.builtin.dnf:
+    name: epel-release
+    disable_gpg_check: false
+    state: present
+  when: ansible_distribution == "CentOS"
+
 - name: Installing software on Red Hat family operating system
-  ansible.builtin.include_tasks: redhat.yml
+  ansible.builtin.include_tasks: fedora.yml
   when: ansible_os_family == "RedHat"
 
 - name: Installing flatpaks

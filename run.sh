@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-sudo dnf install -y ansible
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    if [ "$ID" = "fedora" ]; then
+        sudo dnf install -y ansible
+    elif [ "$ID" = "centos" ]; then
+        sudo dnf install -y ansible-core
+    fi
+fi
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
