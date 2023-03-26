@@ -21,12 +21,12 @@ unzip /tmp/os-instr.zip -d ~/Documents/
 
 ```bash
 lsblk
-sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
+sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 ```
 
 ### Windows
 
-1. **Download [Rufus 3.21](https://github.com/pbatard/rufus/releases/download/v3.21/rufus-3.21.exe)** to burn  Windows image to your USB stick.
+1. **Download [Rufus 3.22](https://github.com/pbatard/rufus/releases/download/v3.22/rufus-3.22.exe)** to burn  Windows image to your USB stick.
 2. Select **your drive** and **path** to `.iso` image.
 3. Select **GPT** partition scheme.
 4. Click **START**. Attention! All data on your flash drive will be erased!
@@ -41,7 +41,6 @@ sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
 * [CentOS Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso)
 
 ##### Fedora Labs
-* [Fedora 37 Astronomy](https://mirror.karneval.cz/pub/linux/fedora-alt/releases/37/Labs/x86_64/iso/Fedora-Astronomy_KDE-Live-x86_64-37-1.7.iso)
 * [Fedora 37 Security Lab](https://mirror.karneval.cz/pub/linux/fedora-alt/releases/37/Labs/x86_64/iso/Fedora-Security-Live-x86_64-37-1.7.iso)
 
 #### Debian
@@ -58,7 +57,7 @@ sudo dd if=/path/to/image.iso of=/dev/sd? status=progress oflag=sync bs=16M
 
 * Check flathub is managed correctly (Fedora)
 * Include separated configs for CentOS (crb repo, inxi, speedtest-cli?, old GNOME ver settings)
-* Include separated configs for Ubuntu
-* Include role for home server deployment
 * Import GPG keyring
-* Import Auth config
+
+* Include separated configs for Pop_OS 24.04
+* Include role for home server deployment
