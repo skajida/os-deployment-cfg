@@ -26,7 +26,7 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 
 ### Windows
 
-1. **Download [Rufus 3.22](https://github.com/pbatard/rufus/releases/download/v3.22/rufus-3.22.exe)** to burn  Windows image to your USB stick.
+1. **Download [Rufus](https://github.com/pbatard/rufus/releases/latest/)** to burn  Windows image to your USB stick.
 2. Select **your drive** and **path** to `.iso` image.
 3. Select **GPT** partition scheme.
 4. Click **START**. Attention! All data on your flash drive will be erased!
@@ -40,11 +40,9 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 * [Fedora 37 Workstation](https://mirror.linux-ia64.org/fedora/linux/releases/37/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-37-1.7.iso)
 * [CentOS Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso)
 
-##### Fedora Labs
-* [Fedora 37 Security Lab](https://mirror.karneval.cz/pub/linux/fedora-alt/releases/37/Labs/x86_64/iso/Fedora-Security-Live-x86_64-37-1.7.iso)
-
 #### Debian
 
+* [Tails 5.11](https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.11/tails-amd64-5.11.iso)
 * [Kali Linux 2023.1](https://cdimage.kali.org/kali-2023.1/kali-linux-2023.1-installer-amd64.iso)
 * [Ubuntu 22.04](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso)
 
