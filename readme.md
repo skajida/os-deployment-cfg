@@ -33,23 +33,7 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 
 ## Images download links
 
-### Linux x86_64
-
-#### Red Hat Enterprise Linux
-
-* [Fedora 37 Workstation](https://mirror.linux-ia64.org/fedora/linux/releases/37/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-37-1.7.iso)
-* [CentOS Stream 9](https://mirror.stream.centos.org/9-stream/BaseOS/x86_64/iso/CentOS-Stream-9-latest-x86_64-dvd1.iso)
-
-#### Debian
-
-* [Tails 5.11](https://mirrors.edge.kernel.org/tails/stable/tails-amd64-5.11/tails-amd64-5.11.iso)
-* [Kali Linux 2023.1](https://cdimage.kali.org/kali-2023.1/kali-linux-2023.1-installer-amd64.iso)
-* [Ubuntu 22.04](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso)
-
-#### Server
-
-* [Fedora 37 Server](https://mirror.linux-ia64.org/fedora/linux/releases/37/Server/x86_64/iso/Fedora-Server-dvd-x86_64-37-1.7.iso)
-* [Ubuntu Server 22.04](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso)
+[`iso`/`torrent` images][docs/images.md]
 
 ## To-do
 
