@@ -33,7 +33,7 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 
 ## Images download links
 
-[`iso`/`torrent` images][docs/images.md]
+[`iso`/`torrent` images](docs/images.md)
 
 ## To-do
 
