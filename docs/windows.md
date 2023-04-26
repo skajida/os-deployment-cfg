@@ -3,6 +3,7 @@
 ## System programs
 * [Firefox](https://www.mozilla.org/firefox/new/)
 * [Total Commander](https://www.ghisler.com/download.htm)
+* [Transmission](https://transmissionbt.com/download/)
 * [VLC media player](https://www.videolan.org/vlc/)
 * [Paint.NET](https://www.getpaint.net/)
 <!-- * [Tor Browser](https://www.torproject.org/download/) -->
@@ -26,8 +27,8 @@
 ## Gaming distribution services
 * [Steam](https://store.steampowered.com/about/)
 * [Epic Games Store](https://www.epicgames.com/)
-<!-- * [Riot Games](https://www.riotgames.com/) -->
 * [Electronic Arts](https://www.ea.com/games/library/pc-download/)
+<!-- * [Riot Games](https://www.riotgames.com/) -->
 
 ## Other gaming stuff
 * [DualSense™ Firmware](https://controller.dl.playstation.net/controller/lang/en/fwupdater.html#section3)
