@@ -39,4 +39,5 @@
 ## Programming
 * [Windows Terminal](https://github.com/microsoft/terminal/releases/latest/)
 * [Visual Studio Code](https://code.visualstudio.com/Download/)
-* [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
+* [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/)
+<!-- * [Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) oldnames.lib msvcrtd.lib missing -->
