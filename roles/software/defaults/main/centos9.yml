@@ -1,0 +1,47 @@
+---
+superfluous_el9_pkgs:
+  - brasero
+  - cheese
+  - evolution
+  - gnome-tour
+  - setroubleshoot
+  - totem
+  - yelp
+
+# TODO
+# jupyter-notebook
+
+baseos:
+  - tmux
+
+appstream:
+  # gnome-tweaks
+  - clang
+  - cmake
+  - python3-pip
+
+epel:
+  # foliate grub-customizer htop
+  - file-roller
+  - inxi
+  - mediainfo
+  - neofetch
+  - pass
+  - speedtest-cli
+  - transmission
+
+crb:
+  - inxi
+
+rpmfusion_free_el9:
+  - vlc
+
+rpmfusion_nonfree_el9:
+  - steam
+
+flathub_el9:
+  # com.discordapp.Discord org.telegram.desktop
+  - com.belmoussaoui.Authenticator
+  - com.github.liferooter.textpieces
+
+desired_el9_pkgs: "{{ baseos | union(appstream) | union(rpmfusion_free_el9) | union(epel) | union(yandex_disk) | union(vscode) | unique }}"

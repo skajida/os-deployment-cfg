@@ -1,0 +1,47 @@
+---
+superfluous_fc38_pkgs:
+  - cheese
+  - gnome-boxes
+  - gnome-calendar
+  - gnome-maps
+  - gnome-photos
+  - gnome-tour
+  - libreoffice*
+  - mediawriter
+  - rhythmbox
+  - totem
+  - yelp
+
+fedora:
+  # foliate gnome-music
+  - file-roller
+  - neofetch
+  - speedtest-cli
+  - tmux
+
+updates:
+  # htop vim TODO
+  - clang
+  - cmake
+  - inxi
+  - mediainfo
+  - pass
+  - python3-pip
+  - transmission
+  - valgrind
+
+rpmfusion_free_fc38:
+  - telegram-desktop
+  - vlc
+
+rpmfusion_nonfree_fc38:
+  - discord
+  - steam
+
+flathub_fc38:
+  # dev.geopjr.Collision org.nickvision.money org.nickvision.tubeconverter
+  - com.belmoussaoui.Authenticator
+  - com.github.liferooter.textpieces
+  - org.gnome.gitlab.YaLTeR.Identity
+
+desired_fc38_pkgs: "{{ fedora | union(updates) | union(rpmfusion_free_fc38) | union(rpmfusion_nonfree_fc38) | union(yandex_disk) | union(vscode) | unique }}"

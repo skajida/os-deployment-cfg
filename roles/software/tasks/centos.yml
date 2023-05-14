@@ -2,26 +2,40 @@
 - name: Removing superfluous packages
   become: yes
   ansible.builtin.dnf:
-    name: "{{ superfluous_fc38_pkgs }}"
+    name: "{{ superfluous_el9_pkgs }}"
     autoremove: true
     state: absent
 
 - name: Adding RPM repositories
   block:
+  - name: Adding EPEL repository
+    become: yes
+    ansible.builtin.dnf:
+      name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+      disable_gpg_check: true
+      state: present
+    when: desired_el9_pkgs | intersect(epel) | length
+  - name: Adding CRB repository
+    become: yes
+    ansible.builtin.command:
+      cmd: dnf config-manager --enable crb
+    register: couput
+    changed_when: not couput.rc | int # TODO check if crb disabled
+    when: desired_el9_pkgs | intersect(crb) | length
   - name: Adding RPM Fusion Free repository
     become: yes
     ansible.builtin.dnf:
-      name: "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      name: "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
       disable_gpg_check: true
       state: present
-    when: desired_fc38_pkgs | intersect(rpmfusion_free_fc38) | length
+    when: desired_el9_pkgs | intersect(rpmfusion_free_el9) | length
   - name: Adding RPM Fusion Nonfree repository
     become: yes
     ansible.builtin.dnf:
-      name: "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      name: "https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
       disable_gpg_check: true
       state: present
-    when: desired_fc38_pkgs | intersect(rpmfusion_nonfree_fc38) | length
+    when: desired_el9_pkgs | intersect(rpmfusion_nonfree_el9) | length
   - name: Adding Visual Studio Code repository
     become: yes
     ansible.builtin.yum_repository:
@@ -31,7 +45,7 @@
       enabled: true
       gpgcheck: true
       gpgkey: https://packages.microsoft.com/keys/microsoft.asc
-    when: desired_fc38_pkgs | intersect(vscode) | length
+    when: desired_el9_pkgs | intersect(vscode) | length
   - name: Adding Yandex.Disk repository
     become: yes
     ansible.builtin.yum_repository:
@@ -40,10 +54,10 @@
       baseurl: http://repo.yandex.ru/yandex-disk/rpm/stable/$basearch
       enabled: true
       failovermethod: priority
-      gpgcheck: true
+      gpgcheck: false # TODO sha-1 depricated
       gpgkey: http://repo.yandex.ru/yandex-disk/YANDEX-DISK-KEY.GPG
       metadata_expire: 1d
-    when: desired_fc38_pkgs | intersect(yandex_disk) | length
+    when: desired_el9_pkgs | intersect(yandex_disk) | length
 
 - name: Updating existing packages
   become: yes
@@ -54,5 +68,5 @@
 - name: Installing desired packages
   become: yes
   ansible.builtin.package:
-    name: "{{ desired_fc38_pkgs }}"
+    name: "{{ desired_el9_pkgs }}"
     state: latest
