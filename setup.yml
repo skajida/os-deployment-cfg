@@ -3,4 +3,4 @@
   roles:
     - role: system
     - role: software
-    - role: user
+    - role: user # TODO appindicator
