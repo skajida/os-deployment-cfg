@@ -11,14 +11,14 @@ All links refer to **x86_64** architecture images.
 
 ### Debian
 
-* Tails 5.11 [`iso`](https://download.tails.net/tails/stable/tails-amd64-5.11/tails-amd64-5.11.iso) [`torrent`](https://tails.boum.org/torrents/files/tails-amd64-5.12.iso.torrent)
-* Kali Linux 2023.1 [`iso`](https://cdimage.kali.org/kali-2023.1/kali-linux-2023.1-installer-amd64.iso) [`torrent`](https://cdimage.kali.org/kali-2023.1/kali-linux-2023.1-installer-amd64.iso.torrent)
+* Tails 5.16 [`iso`](https://download.tails.net/tails/stable/tails-amd64-5.16/tails-amd64-5.16.iso) [`torrent`](https://tails.net/torrents/files/tails-amd64-5.16.iso.torrent)
 * Ubuntu 22.04 [`iso`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso) [`torrent`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso.torrent)
+<!--- * Kali Linux 2023.1 [`iso`](https://cdimage.kali.org/current/kali-linux-2023.2a-installer-amd64.iso) [`torrent`](https://cdimage.kali.org/current/kali-linux-2023.2a-installer-amd64.iso.torrent) --->
 
-### Server
+<!--- ### Server
 
 * Fedora 38 Server [`iso`](https://download.fedoraproject.org/pub/fedora/linux/releases/38/Server/x86_64/iso/Fedora-Server-dvd-x86_64-38-1.6.iso) [`torrent`](https://torrent.fedoraproject.org/torrents/Fedora-Server-dvd-x86_64-38.torrent)
-* Ubuntu Server 22.04 [`iso`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso) [`torrent`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso.torrent)
+* Ubuntu Server 22.04 [`iso`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso) [`torrent`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-live-server-amd64.iso.torrent) --->
 
 ## Windows
 
