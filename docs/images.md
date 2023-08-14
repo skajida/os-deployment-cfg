@@ -11,7 +11,7 @@ All links refer to **x86_64** architecture images.
 
 ### Debian
 
-* Tails 5.16 [`iso`](https://download.tails.net/tails/stable/tails-amd64-5.16/tails-amd64-5.16.iso) [`torrent`](https://tails.net/torrents/files/tails-amd64-5.16.iso.torrent)
+* Tails 5.16 [`img`](https://download.tails.net/tails/stable/tails-amd64-5.16/tails-amd64-5.16.img) [`torrent`](https://tails.net/torrents/files/tails-amd64-5.16.img.torrent)
 * Ubuntu 22.04 [`iso`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso) [`torrent`](https://releases.ubuntu.com/22.04/ubuntu-22.04.2-desktop-amd64.iso.torrent)
 <!--- * Kali Linux 2023.1 [`iso`](https://cdimage.kali.org/current/kali-linux-2023.2a-installer-amd64.iso) [`torrent`](https://cdimage.kali.org/current/kali-linux-2023.2a-installer-amd64.iso.torrent) --->
 
