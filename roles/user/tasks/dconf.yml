@@ -85,9 +85,15 @@
         value: "'appmenu:minimize,maximize,close'"
 
 - name: Enabling sort-directories-first toggle
-  community.general.dconf:
-    key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
-    value: "true"
+  block:
+  - community.general.dconf:
+      key: /org/gtk/settings/file-chooser/sort-directories-first
+      value: "true"
+    when: when: ansible_distribution == "CentOS"
+  - community.general.dconf:
+      key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
+      value: "true"
+    when: when: ansible_distribution == "Fedora"
 
 - name: Setting up Text Editor settings
   block:
@@ -117,6 +123,7 @@
       community.general.dconf:
         key: /org/fedorahosted/background-logo-extension/logo-always-visible
         value: "true"
+      when: ansible_distribution == "Fedora"
 
 - name: Setting up Terminal settings
   block:

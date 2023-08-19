@@ -26,6 +26,7 @@ epel:
   - inxi
   - mediainfo
   - neofetch
+  - ntfs-3g
   - pass
   - speedtest-cli
   - transmission
