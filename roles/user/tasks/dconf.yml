@@ -89,11 +89,11 @@
   - community.general.dconf:
       key: /org/gtk/settings/file-chooser/sort-directories-first
       value: "true"
-    when: when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "CentOS"
   - community.general.dconf:
       key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
       value: "true"
-    when: when: ansible_distribution == "Fedora"
+    when: ansible_distribution == "Fedora"
 
 - name: Setting up Text Editor settings
   block:
