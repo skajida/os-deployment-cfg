@@ -37,8 +37,7 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 
 ## To-do
 
-* Check flathub is managed correctly (Fedora)
-* Include separated configs for CentOS (crb repo, inxi, speedtest-cli?, old GNOME ver settings)
+* Add [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono/releases/latest/) to the system (or user) fonts
 * Import GPG keyring
 
 * Include separated configs for Pop_OS 24.04
