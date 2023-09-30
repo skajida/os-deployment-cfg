@@ -1,0 +1,21 @@
+theme = "default"
+
+[editor]
+mouse = false
+middle-click-paste = false
+line-number = "relative"
+cursorline = true
+completion-replace = true
+rulers = [100]
+
+[editor.statusline]
+left = ["mode", "spinner", "diagnostics"]
+center = ["position", "position-percentage"]
+right = ["file-modification-indicator", "file-base-name", "file-encoding", "file-line-ending"]
+
+[editor.cursor-shape]
+insert = "bar"
+select = "hidden"
+
+[editor.file-picker]
+hidden = false
