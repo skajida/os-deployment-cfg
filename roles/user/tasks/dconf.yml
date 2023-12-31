@@ -89,7 +89,7 @@
   - community.general.dconf:
       key: /org/gtk/settings/file-chooser/sort-directories-first
       value: "true"
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "Rocky"
   - community.general.dconf:
       key: /org/gtk/gtk4/settings/file-chooser/sort-directories-first
       value: "true"

@@ -6,7 +6,7 @@ if [ -f /etc/os-release ]; then
     . /etc/os-release
     if [ "$ID" = "fedora" ]; then
         sudo dnf install -y ansible
-    elif [ "$ID" = "centos" ]; then
+    elif [ "$ID" = "rocky" ]; then
         sudo dnf install -y ansible-core
     fi
 

@@ -1,9 +1,9 @@
 ---
 - name: Installing software on Red Hat family operation system
   block:
-  - name: Installing software on CentOS
-    ansible.builtin.include_tasks: centos.yml
-    when: ansible_distribution == "CentOS"
+  - name: Installing software on Rocky Linux
+    ansible.builtin.include_tasks: rocky.yml
+    when: ansible_distribution == "Rocky"
   - name: Installing software on Fedora Workstation
     ansible.builtin.include_tasks: fedora.yml
     when: ansible_distribution == "Fedora"

@@ -37,11 +37,11 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 
 ## To-do
 
-- [ ] Migrate to [Rocky Linux](https://rockylinux.org/) from [CentOS Stream](https://centos.org/)
+- [x] Migrate to [Rocky Linux](https://rockylinux.org/) from [CentOS Stream](https://centos.org/)
 - [ ] Rename roles config files and add hxcfg deployment
 - [ ] Make 110x24 terminal size as default
 - [ ] Add [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono/releases/latest/) to the system (or user) fonts
 
 - [ ] Import GPG keyring
-- [ ]  Include separated configs for Pop_OS 24.04
+- [ ] Include separated configs for Pop_OS 24.04
 - [ ] Include role for home server deployment
