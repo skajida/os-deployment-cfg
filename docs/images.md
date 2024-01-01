@@ -7,7 +7,7 @@ All links refer to **x86_64** architecture images.
 ### Red Hat
 
 * Fedora 38 Workstation [`iso`](https://download.fedoraproject.org/pub/fedora/linux/releases/38/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-38-1.6.iso) [`torrent`](https://torrent.fedoraproject.org/torrents/Fedora-Workstation-Live-x86_64-38.torrent)
-* Rocky Linux 9.3 [`iso`](https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.3-x86_64-dvd.iso) [torrent](https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.3-x86_64-dvd.torrent)
+* Rocky Linux 9.3 [`iso`](https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.3-x86_64-dvd.iso) [`torrent`](https://download.rockylinux.org/pub/rocky/9/isos/x86_64/Rocky-9.3-x86_64-dvd.torrent)
 
 ### Debian
 
