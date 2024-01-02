@@ -1,0 +1,7 @@
+---
+flatpak_packages:
+  # com.discordapp.Discord
+  - com.belmoussaoui.Authenticator
+  - com.github.ADBeveridge.Raider
+  - com.github.liferooter.textpieces
+  - org.telegram.desktop

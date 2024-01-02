@@ -40,11 +40,4 @@ rpmfusion_free_el9:
 rpmfusion_nonfree_el9:
   - steam
 
-flathub_el9:
-  # com.discordapp.Discord
-  - com.belmoussaoui.Authenticator
-  - com.github.ADBeveridge.Raider
-  - com.github.liferooter.textpieces
-  - org.telegram.desktop
-
 desired_el9_pkgs: "{{ appstream | union(rpmfusion_free_el9) | union(epel) | union(yandex_disk) | union(vscode) | unique }}"
