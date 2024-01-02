@@ -3,5 +3,6 @@
   include_tasks: "{{ item }}"
   loop:
     - hostname.yml
+    - jetbrains-mono.yml
     - bluetooth.yml
     - dnfspeedup.yml

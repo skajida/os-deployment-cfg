@@ -1,0 +1,14 @@
+---
+- name: Installing JetBrains Mono
+  block:
+    - name: Creating fonts directory
+      become: yes
+      ansible.builtin.file:
+        path: /usr/local/share/fonts/jetbrains-mono
+        state: directory
+    - name: Downloading Jetbrains Mono v2.304
+      become: yes
+      ansible.builtin.unarchive:
+        src: https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip
+        dest: /usr/local/share/fonts/jetbrains-mono/
+        remote_src: true
