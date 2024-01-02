@@ -8,16 +8,15 @@ superfluous_el9_pkgs:
   - totem
   - yelp
 
-# TODO
-# jupyter-notebook
-
 baseos:
   - tmux
 
 appstream:
-  # gnome-tweaks
+  - cargo
   - clang
   - cmake
+  - golang
+  - podman
   - python3-pip
 
 epel:
@@ -28,6 +27,7 @@ epel:
   - neofetch
   - ntfs-3g
   - pass
+  - perl-Image-ExifTool
   - speedtest-cli
   - transmission
 
@@ -41,8 +41,10 @@ rpmfusion_nonfree_el9:
   - steam
 
 flathub_el9:
-  # com.discordapp.Discord org.telegram.desktop
+  # com.discordapp.Discord
   - com.belmoussaoui.Authenticator
+  - com.github.ADBeveridge.Raider
   - com.github.liferooter.textpieces
+  - org.telegram.desktop
 
-desired_el9_pkgs: "{{ baseos | union(appstream) | union(rpmfusion_free_el9) | union(epel) | union(yandex_disk) | union(vscode) | unique }}"
+desired_el9_pkgs: "{{ appstream | union(rpmfusion_free_el9) | union(epel) | union(yandex_disk) | union(vscode) | unique }}"
