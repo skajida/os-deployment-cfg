@@ -10,7 +10,7 @@ if [ -f /etc/os-release ]; then
         sudo dnf install -y ansible
     fi
 
-    ansible-galaxy collection install -r $SCRIPT_DIR/requirements.yml
+    sudo ansible-galaxy collection install -p /usr/share/ansible/collections -r $SCRIPT_DIR/requirements.yml
 
     if [ $# -ne 1 ]; then
         ansible-playbook $SCRIPT_DIR/setup.yml -K
