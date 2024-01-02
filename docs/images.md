@@ -5,6 +5,7 @@ All links refer to **x86_64** architecture images.
 ## Linux
 
 ### RedHat
+* AlmaLinux 9.3 [`iso`](https://repo.almalinux.org/almalinux/9.3/isos/x86_64/AlmaLinux-9.3-x86_64-dvd.iso) [`torrent`](https://repo.almalinux.org/almalinux/9.3/isos/x86_64/AlmaLinux-9.3-x86_64.torrent)
 * Rocky Linux 9.3 [`iso`](https://download.rockylinux.org/pub/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-dvd.iso) [`torrent`](https://download.rockylinux.org/pub/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-dvd.torrent)
 <!--- * Fedora 39 Workstation [`iso`](https://mirror.yandex.ru/fedora/linux/releases/39/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-39-1.5.iso) [`torrent`](https://torrent.fedoraproject.org/torrents/Fedora-Workstation-Live-x86_64-39.torrent) --->
 
