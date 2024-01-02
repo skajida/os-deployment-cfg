@@ -1,4 +1,8 @@
 ---
+- name: Rebuilding font information cache files
+  ansible.builtin.command:
+    cmd: fc-cache /usr/local/share/fonts
+
 - name: Removing DNF cache data
   become: yes
   ansible.builtin.command:
