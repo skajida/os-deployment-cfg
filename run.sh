@@ -4,10 +4,10 @@ SCRIPT_DIR=$(realpath $(dirname $BASH_SOURCE))
 
 if [ -f /etc/os-release ]; then
     . /etc/os-release
-    if [ "$ID" = "fedora" ]; then
-        sudo dnf install -y ansible
-    elif [ "$ID" = "rocky" ] || ["$ID" = "almalinux"]; then
+    if [ "$ID" = "almalinux" ] || [ "$ID" = "rocky" ]; then
         sudo dnf install -y ansible-core
+    elif [ "$ID" = "fedora" ]; then
+        sudo dnf install -y ansible
     fi
 
     ansible-galaxy collection install -r $SCRIPT_DIR/requirements.yml
