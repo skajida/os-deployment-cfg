@@ -1,19 +1,15 @@
 # My ansible config
 
-## Download and run config
-
-**Downloading**
+## Downloading config
 
 ```bash
-wget --show-progress https://github.com/skajida/os-instructions/archive/refs/heads/main.zip -O /tmp/os-instr.zip
-unzip /tmp/os-instr.zip -d ~/Documents/
+wget --show-progress https://github.com/skajida/os-instructions/archive/refs/heads/main.zip -O /tmp/os-deployment-cfg.zip
+unzip /tmp/os-deployment-cfg.zip -d ~/Documents/
 ```
 
-**Running**
+## Images download links
 
-```bash
-~/Documents/os-instructions-main/run.sh [hostname]
-```
+[`iso`/`torrent` images](docs/images.md)
 
 ## Creating a bootable USB drive
 
@@ -31,17 +27,12 @@ sudo dd status=progress oflag=sync bs=4M if=/path/to/image.iso of=/dev/sd?
 3. Select **GPT** partition scheme.
 4. Click **START**. Attention! All data on your flash drive will be erased!
 
-## Images download links
-
-[`iso`/`torrent` images](docs/images.md)
-
 ## To-do
 
-- [x] Migrate to [Rocky Linux](https://rockylinux.org/) from [CentOS Stream](https://centos.org/)
+- [ ] Apply [recommended layout](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#directory-layout)
 - [ ] Rename roles config files and add hxcfg deployment
-- [ ] Make 110x24 terminal size as default
-- [ ] Add [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono/releases/latest/) to the system (or user) fonts
+- [ ] ~~Make 110x24 terminal size as default~~
 
-- [ ] Import GPG keyring
+- [ ] Import GPG keyring from secret vault
 - [ ] Include separated configs for Pop_OS 24.04
 - [ ] Include role for home server deployment
