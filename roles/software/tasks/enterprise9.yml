@@ -17,10 +17,12 @@
     when: desired_el9_pkgs | intersect(epel) | length
   - name: Adding CRB repository
     become: yes
-    ansible.builtin.command:
-      cmd: dnf config-manager --enable crb
-    register: couput
-    changed_when: not couput.rc | int # TODO check if crb disabled
+    community.general.ini_file:
+      path: "{{ (ansible_distribution == 'AlmaLinux') | ternary('/etc/yum.repos.d/almalinux-crb.repo', (ansible_distribution == 'Rocky' | ternary('/etc/yum.repos.d/rocky.repo', ''))) }}"
+      section: crb
+      option: enabled
+      value: 1
+      create: false
     when: desired_el9_pkgs | intersect(crb) | length
   - name: Adding RPM Fusion Free repository
     become: yes

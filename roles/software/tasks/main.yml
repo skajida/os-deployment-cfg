@@ -1,13 +1,10 @@
 ---
-- name: Installing software on Red Hat family operation system
+- name: Installing software on RedHat family operation system
   block:
-  - name: Installing software on Rocky Linux
-    ansible.builtin.include_tasks: rocky.yml
-    when: ansible_distribution == "Rocky"
-  - name: Installing software on Fedora Workstation
-    ansible.builtin.include_tasks: fedora.yml
-    when: ansible_distribution == "Fedora"
+  - name: Installing software on Enterprise Linux 9
+    ansible.builtin.include_tasks: enterprise9.yml
+    when: (ansible_distribution == "AlmaLinux" || ansible_distribution == "Rocky") && ansible_distribution_major_version == "9"
   when: ansible_os_family == "RedHat"
 
-# - name: Installing flatpaks
-#   ansible.builtin.include_tasks: flatpak.yml
+- name: Installing flatpaks
+  ansible.builtin.include_tasks: flatpak.yml
