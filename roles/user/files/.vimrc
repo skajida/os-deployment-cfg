@@ -12,6 +12,7 @@ syntax on
 colorscheme eclipse
 
 set number
+set relativenumber
 set expandtab
 set tabstop=4
 
